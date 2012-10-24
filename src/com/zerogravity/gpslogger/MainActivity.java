@@ -11,6 +11,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -34,6 +35,7 @@ public class MainActivity extends Activity {
 	TurnOff = (Button) findViewById(R.id.btOff);
 	LogLocationNow = (Button) findViewById(R.id.bRib);
 	tv = (TextView) findViewById(R.id.t1);
+	tv.setMovementMethod(new ScrollingMovementMethod());
 	gps = new GPSTracker(getApplicationContext());
 
 	// check if GPS enabled

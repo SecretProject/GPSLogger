@@ -24,6 +24,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="Large Text" />
+        android:text="Large Text" 
+        android:maxLines = "100"
+
+android:scrollbars = "vertical"/>
 
 </RelativeLayout>
