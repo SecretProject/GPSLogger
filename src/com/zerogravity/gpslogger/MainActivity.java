@@ -7,6 +7,8 @@ import java.io.IOException;
 
 import android.app.Activity;
 import android.app.PendingIntent;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -20,8 +22,10 @@ public class MainActivity extends Activity {
     PendingIntent sender;
     GPSTracker gps;
     TextView tv;
-    
-    
+
+    LocationListener mlocListener;
+    LocationManager mlocManager;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -29,22 +33,21 @@ public class MainActivity extends Activity {
 
 	TurnOff = (Button) findViewById(R.id.btOff);
 	LogLocationNow = (Button) findViewById(R.id.bRib);
-	tv = (TextView)findViewById(R.id.t1);
-	    gps = new GPSTracker(getApplicationContext());
+	tv = (TextView) findViewById(R.id.t1);
+	gps = new GPSTracker(getApplicationContext());
 
-	    // check if GPS enabled
-	    if (gps.canGetLocation()){
-		
-		//logLocationToFile();
-		
-	    }else{
-		// can't get location
-		// GPS or Network is not enabled
-		// Ask user to enable GPS/network in settings
-		gps.showSettingsAlert();
-	    }
-	    
-	    
+	// check if GPS enabled
+	if (gps.canGetLocation()) {
+
+	    // logLocationToFile();
+
+	} else {
+	    // can't get location
+	    // GPS or Network is not enabled
+	    // Ask user to enable GPS/network in settings
+	    gps.showSettingsAlert();
+	}
+
 	LogLocationNow.setOnClickListener(new OnClickListener() {
 	    @Override
 	    public void onClick(View v) {
@@ -65,14 +68,15 @@ public class MainActivity extends Activity {
 	});
     }
 
-    public void PlayWithRawFiles() {      
-	
+    public void PlayWithRawFiles() {
+
 	File sdcard = Environment.getExternalStorageDirectory();
 
-	//Get the text file
-	File file = new File(sdcard,File.separator+Constants.DIRECTORY_NAME+File.separator+Constants.FILE_NAME);
+	// Get the text file
+	File file = new File(sdcard, File.separator + Constants.DIRECTORY_NAME
+		+ File.separator + Constants.FILE_NAME);
 
-	//Read text from file
+	// Read text from file
 	StringBuilder text = new StringBuilder();
 
 	try {
@@ -80,20 +84,18 @@ public class MainActivity extends Activity {
 	    String line;
 
 	    while ((line = br.readLine()) != null) {
-	        text.append(line);
-	        text.append('\n');
+		text.append(line);
+		text.append('\n');
 	    }
-	}
-	catch (IOException e) {
-	    //You'll need to add proper error handling here
+	} catch (IOException e) {
+	    // You'll need to add proper error handling here
 	}
 
-	//Find the view by its id
-	TextView tv = (TextView)findViewById(R.id.t1);
+	// Find the view by its id
+	TextView tv = (TextView) findViewById(R.id.t1);
 
-	//Set the text
-	tv.setText(text);		
+	// Set the text
+	tv.setText(text);
     }
 
 }
-
