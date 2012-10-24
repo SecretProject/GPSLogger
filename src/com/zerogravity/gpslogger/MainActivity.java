@@ -2,9 +2,8 @@ package com.zerogravity.gpslogger;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -68,21 +66,33 @@ public class MainActivity extends Activity {
 
     public void PlayWithRawFiles() throws IOException {      
 	
-	File f = new File(Environment.getExternalStorageDirectory()
-                .getAbsolutePath() + File.separator + Constants.FileName);
-	String str="";
-	StringBuffer buf = new StringBuffer();			
-	InputStream is = this.getResources().openRawResource(R.drawable.my_base_data);
-	BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-	if (is!=null) {							
-		while ((str = reader.readLine()) != null) {	
-			buf.append(str + "\n" );
-		}				
-	}		
-	is.close();	
-	Toast.makeText(getBaseContext(), 
-			buf.toString(), Toast.LENGTH_LONG).show();				
+	File sdcard = Environment.getExternalStorageDirectory();
+
+	//Get the text file
+	File file = new File(sdcard,File.separator+Constants.DirectoryName+File.separator+Constants.FileName);
+
+	//Read text from file
+	StringBuilder text = new StringBuilder();
+
+	try {
+	    BufferedReader br = new BufferedReader(new FileReader(file));
+	    String line;
+
+	    while ((line = br.readLine()) != null) {
+	        text.append(line);
+	        text.append('\n');
+	    }
+	}
+	catch (IOException e) {
+	    //You'll need to add proper error handling here
+	}
+
+	//Find the view by its id
+	TextView tv = (TextView)findViewById(R.id.t1);
+
+	//Set the text
+	tv.setText(text);		
     }
 
 }
-}
+
