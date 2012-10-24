@@ -1,8 +1,6 @@
 package com.zerogravity.gpslogger;
 
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -22,7 +20,7 @@ public class WriteToFile {
 	checkExternalMedia();
 
 	File root = android.os.Environment.getExternalStorageDirectory();
-	FilePath = new File(root.getAbsolutePath() + "/a");
+	FilePath = new File(root.getAbsolutePath() + File.separator+Constants.DIRECTORY_NAME);
 	FilePath.mkdirs();
     }
 
@@ -36,7 +34,7 @@ public class WriteToFile {
 
 	String data = System.currentTimeMillis() + " " + latitude + " "
 		+ longitude + " " + accuracy + " " + speed + " " + time + "\n";
-	writeToSDFile(Constants.FileName, data);
+	writeToSDFile(Constants.FILE_NAME, data);
 	
     }
 

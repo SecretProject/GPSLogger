@@ -51,6 +51,7 @@ public class MainActivity extends Activity {
 		// TODO Auto-generated method stub
 		WriteToFile wtf = new WriteToFile();
 		wtf.logLocationToFile(gps);
+		PlayWithRawFiles();
 	    }
 	});
 
@@ -64,12 +65,12 @@ public class MainActivity extends Activity {
 	});
     }
 
-    public void PlayWithRawFiles() throws IOException {      
+    public void PlayWithRawFiles() {      
 	
 	File sdcard = Environment.getExternalStorageDirectory();
 
 	//Get the text file
-	File file = new File(sdcard,File.separator+Constants.DirectoryName+File.separator+Constants.FileName);
+	File file = new File(sdcard,File.separator+Constants.DIRECTORY_NAME+File.separator+Constants.FILE_NAME);
 
 	//Read text from file
 	StringBuilder text = new StringBuilder();
